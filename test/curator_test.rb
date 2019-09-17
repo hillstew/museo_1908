@@ -117,4 +117,19 @@ class CuratorTest < Minitest::Test
 
     assert_equal expected, actual
   end
+
+  def test_it_can_find_artists_with_multiple_photographs
+    @curator.add_artist(@artist_1)
+    @curator.add_artist(@artist_2)
+    @curator.add_artist(@artist_3)
+    @curator.add_photograph(@photo_1)
+    @curator.add_photograph(@photo_2)
+    @curator.add_photograph(@photo_3)
+    @curator.add_photograph(@photo_4)
+
+    actual = @curator.artists_with_multiple_photographs
+    expected = [@artist_3]
+
+    assert_equal expected, actual
+  end
 end
