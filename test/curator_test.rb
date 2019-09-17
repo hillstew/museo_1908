@@ -132,4 +132,22 @@ class CuratorTest < Minitest::Test
 
     assert_equal expected, actual
   end
+
+  def test_it_can_find_photographs_taken_by_artist_by_country
+    @curator.add_artist(@artist_1)
+    @curator.add_artist(@artist_2)
+    @curator.add_artist(@artist_3)
+    @curator.add_photograph(@photo_1)
+    @curator.add_photograph(@photo_2)
+    @curator.add_photograph(@photo_3)
+    @curator.add_photograph(@photo_4)
+
+    actual = @curator.photographs_taken_by_artist_from("United States")
+    expected = [@photo_2, @photo_3, @photo_4]
+
+    assert_equal expected, actual
+
+    actual = @curator.photographs_taken_by_artist_from("Argentina")
+    assert_equal [], actual
+  end
 end
