@@ -34,12 +34,11 @@ class Curator
   end
 
   def artists_with_multiple_photographs
-    artist_ids = []
-    artists = @photographs.group_by(&:artist_id)
-    artists.each do |id, photos|
-      artist_ids.push(find_artist_by_id(id)) if photos.length > 1
+    artists = []
+    @photographs.group_by(&:artist_id).each do |id, photos|
+      artists.push(find_artist_by_id(id)) if photos.length > 1
     end
-    artist_ids
+    artists
   end
 
   def photographs_taken_by_artist_from(country)
