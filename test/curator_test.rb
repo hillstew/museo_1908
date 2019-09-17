@@ -33,6 +33,13 @@ class CuratorTest < Minitest::Test
       died: "1984",
       country: "United States"
     })
+    @artist_3 = Artist.new({
+      id: "34",
+      name: "fkgjsdfg",
+      born: "1453",
+      died: "1490",
+      country: "United States"
+    })
   end
 
   def test_it_exists
@@ -64,5 +71,16 @@ class CuratorTest < Minitest::Test
     assert_equal [@artist_1, @artist_2], @curator.artists
   end
 
+  def test_it_can_find_artist_by_id
+    @curator.add_artist(@artist_1)
+    @curator.add_artist(@artist_2)
+    @curator.add_artist(@artist_3)
+    expected = @curator.find_artist_by_id("1")
 
+    assert_equal expected, @artist_1
+
+    expected = @curator.find_artist_by_id("34")
+
+    assert_equal expected, @artist_3
+  end
 end
