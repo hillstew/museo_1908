@@ -19,6 +19,18 @@ class CuratorTest < Minitest::Test
       artist_id: "2",
       year: "1941"
      })
+     @photo_3 = Photograph.new({
+       id: "3",
+       name: "Identical Twins, Roselle, New Jersey",
+       artist_id: "3",
+       year: "1967"
+     })
+     @photo_4 = Photograph.new({
+       id: "4",
+       name: "Monolith, The Face of Half Dome",
+       artist_id: "3",
+       year: "1927"
+     })
     @artist_1 = Artist.new({
       id: "1",
       name: "Henri Cartier-Bresson",
@@ -34,11 +46,11 @@ class CuratorTest < Minitest::Test
       country: "United States"
     })
     @artist_3 = Artist.new({
-      id: "34",
-      name: "fkgjsdfg",
-      born: "1453",
-      died: "1490",
-      country: "United States"
+       id: "3",
+       name: "Diane Arbus",
+       born: "1923",
+       died: "1971",
+       country: "United States"
     })
   end
 
@@ -79,16 +91,30 @@ class CuratorTest < Minitest::Test
 
     assert_equal expected, @artist_1
 
-    expected = @curator.find_artist_by_id("34")
+    actual = @curator.find_artist_by_id("3")
 
-    assert_equal expected, @artist_3
+    assert_equal @artist_3, actual
   end
 
   def test_it_can_find_photograph_by_id
     @curator.add_photograph(@photo_1)
     @curator.add_photograph(@photo_2)
-    expected = @curator.find_photograph_by_id("2")
+    actual = @curator.find_photograph_by_id("2")
 
-    assert_equal expected, @photo_2
+    assert_equal @photo_2, actual
+  end
+
+  def test_it_can_find_photographs_by_artist
+    @curator.add_artist(@artist_1)
+    @curator.add_artist(@artist_2)
+    @curator.add_artist(@artist_3)
+    @curator.add_photograph(@photo_1)
+    @curator.add_photograph(@photo_2)
+    @curator.add_photograph(@photo_3)
+    @curator.add_photograph(@photo_4)
+    expected = [@photo_3, @photo_4]
+    actual = @curator.find_photographs_by_artist(@artist_3)
+
+    assert_equal expected, actual
   end
 end
