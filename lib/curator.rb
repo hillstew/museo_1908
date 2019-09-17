@@ -1,3 +1,7 @@
+require 'csv'
+require './lib/photograph'
+require './lib/artist'
+
 class Curator
   attr_reader :photographs,
               :artists
@@ -41,6 +45,18 @@ class Curator
   def photographs_taken_by_artist_from(country)
     @photographs.find_all do |photo|
       find_artist_by_id(photo.artist_id).country == country
+    end
+  end
+
+  def load_photographs(file)
+    CSV.foreach(file, :headers=> true) do |row|
+      @photographs.push(Photograph.new(row))
+    end
+  end
+
+  def load_artists(file)
+    CSV.foreach(file, :headers=> true) do |row|
+      @artists.push(Artist.new(row))
     end
   end
 end
