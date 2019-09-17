@@ -28,4 +28,13 @@ class Curator
       photo.artist_id == artist.id
     end
   end
+
+  def artists_with_multiple_photographs
+    artist_ids = []
+    artists = @photographs.group_by(&:artist_id)
+    artists.each do |id, photos|
+      artist_ids.push(find_artist_by_id(id)) if photos.length > 1
+    end
+    artist_ids
+  end
 end
