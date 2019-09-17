@@ -173,4 +173,16 @@ class CuratorTest < Minitest::Test
       assert (1950..1965).to_a.include? photo.year.to_i
     end
   end
+
+  def test_it_can_create_artists_photographs_by_age
+    @curator.load_artists('./data/artists.csv')
+    @curator.load_photographs('./data/photographs.csv')
+    diane_arbus = @curator.find_artist_by_id("3")
+    actual = @curator.artists_photographs_by_age(diane_arbus)
+    expected = {
+      44=>"Identical Twins, Roselle, New Jersey",
+      39=>"Child with Toy Hand Grenade in Central Park"
+    }
+    assert_equal expected, actual
+  end
 end
