@@ -12,4 +12,8 @@ class CuratorTest < Minitest::Test
   def test_it_exists
     assert_instance_of Curator, @curator
   end
+
+  def test_initialize
+    assert_equal [], @curator.photographs
+  end
 end
