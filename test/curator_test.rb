@@ -83,4 +83,12 @@ class CuratorTest < Minitest::Test
 
     assert_equal expected, @artist_3
   end
+
+  def test_it_can_find_photograph_by_id
+    @curator.add_photograph(@photo_1)
+    @curator.add_photograph(@photo_2)
+    expected = @curator.find_photograph_by_id("2")
+
+    assert_equal expected, @photo_2
+  end
 end
