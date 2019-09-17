@@ -17,4 +17,12 @@ class ArtistTest < Minitest::Test
   def test_it_exists
     assert_instance_of Artist, @artist
   end
+
+  def test_initialize
+    assert_equal @attributes[:id], @artist.id
+    assert_equal @attributes[:name], @artist.name
+    assert_equal @attributes[:born], @artist.born
+    assert_equal @attributes[:died], @artist.died
+    assert_equal @attributes[:country], @artist.country
+  end
 end
