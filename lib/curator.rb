@@ -65,4 +65,12 @@ class Curator
       range.to_a.include? photo.year.to_i
     end
   end
+
+  def artists_photographs_by_age(artist)
+    photos_by_age = Hash.new
+    find_photographs_by_artist(artist).each do |photo|
+      photos_by_age[photo.year.to_i - artist.born.to_i] = photo.name
+    end
+    photos_by_age
+  end
 end
